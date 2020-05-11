@@ -122,7 +122,8 @@ public:
       enum EState {
          STATE_RESTING = 0,
          STATE_EXPLORING,
-         STATE_RETURN_TO_NEST
+         STATE_RETURN_TO_NEST,
+         STATE_LEAVE_HOME
       } State;
 
       /* True when the robot is in the nest */
@@ -320,6 +321,15 @@ private:
    /* The food data */
    SFoodData m_sFoodData;
 
+   /*self implementation*/
+   void findPuck();
+   //not needed void findCollision();
+   void goHome();
+   void goHomeCollision();
+   void dropFood();
+   void leaveHome();
+
 };
+
 
 #endif

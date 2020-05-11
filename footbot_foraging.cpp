@@ -156,16 +156,22 @@ void CFootBotForaging::Init(TConfigurationNode& t_node) {
 void CFootBotForaging::ControlStep() {
     switch(m_sStateData.State) {
        case SStateData::STATE_RESTING: {
-          Rest();
+         dropFood();
           break;
        }
        case SStateData::STATE_EXPLORING: {
-          Explore();
+          //Explore();
+          findPuck();
           break;
        }
        case SStateData::STATE_RETURN_TO_NEST: {
-          ReturnToNest();
+          //ReturnToNest();
+          goHome();
           break;
+       }
+       case SStateData::STATE_LEAVE_HOME: {
+           leaveHome();
+           break;
        }
        default: {
           LOGERR << "We can't be here, there's a bug!" << std::endl;
@@ -429,7 +435,7 @@ void CFootBotForaging::Explore() {
       /* Yes, we do! */
       m_sStateData.TimeExploringUnsuccessfully = 0;
       m_sStateData.TimeSearchingForPlaceInNest = 0;
-      m_pcLEDs->SetAllColors(CColor::BLUE);
+      m_pcLEDs->SetAllColors(CColor::YELLOW);
       m_sStateData.State = SStateData::STATE_RETURN_TO_NEST;
    }
    else {
@@ -443,10 +449,10 @@ void CFootBotForaging::Explore() {
       if(bCollision) {
          /* Collision avoidance happened, increase ExploreToRestProb and
           * decrease RestToExploreProb */
-         m_sStateData.ExploreToRestProb += m_sStateData.CollisionRuleExploreToRestDeltaProb;
-         m_sStateData.ProbRange.TruncValue(m_sStateData.ExploreToRestProb);
-         m_sStateData.RestToExploreProb -= m_sStateData.CollisionRuleExploreToRestDeltaProb;
-         m_sStateData.ProbRange.TruncValue(m_sStateData.RestToExploreProb);
+//         m_sStateData.ExploreToRestProb += m_sStateData.CollisionRuleExploreToRestDeltaProb;
+//         m_sStateData.ProbRange.TruncValue(m_sStateData.ExploreToRestProb);
+//         m_sStateData.RestToExploreProb -= m_sStateData.CollisionRuleExploreToRestDeltaProb;
+//         m_sStateData.ProbRange.TruncValue(m_sStateData.RestToExploreProb);
       }
       /*
        * If we are in the nest, we combine antiphototaxis with obstacle
@@ -505,6 +511,135 @@ void CFootBotForaging::ReturnToNest() {
    SetWheelSpeedsFromVector(
       m_sWheelTurningParams.MaxSpeed * DiffusionVector(bCollision) +
       m_sWheelTurningParams.MaxSpeed * CalculateVectorToLight());
+}
+
+/*THIS FUNCTION SEARCHING FOR PUCK/FOOD with a time limit for searching*/
+void CFootBotForaging::findPuck() {
+    bool bReturnToNest(false);
+    /*
+    * Test the first condition: have we found a food item?
+    * NOTE: the food data is updated by the loop functions, so
+    * here we just need to read it
+    */
+    if (m_sFoodData.HasFoodItem) {
+        /* Store the result of the expedition */
+        m_eLastExplorationResult = LAST_EXPLORATION_SUCCESSFUL;
+        /* Switch to 'return to nest' */
+        bReturnToNest = true;
+    }
+    /*If time for searching has passed*/
+    else if(m_sStateData.TimeExploringUnsuccessfully > m_sStateData.MinimumUnsuccessfulExploreTime) {
+        /* Store the result of the expedition */
+        m_eLastExplorationResult = LAST_EXPLORATION_UNSUCCESSFUL;
+        /* Switch to 'return to nest' */
+        bReturnToNest = true;
+    }
+    /* So, do we return to the nest now? */
+    if (bReturnToNest) {
+        /* Yes, we do! */
+        m_sStateData.TimeExploringUnsuccessfully = 0;
+        m_pcLEDs->SetAllColors(CColor::YELLOW);
+        m_sStateData.State = SStateData::STATE_RETURN_TO_NEST;
+    } else {
+        /* No, perform the actual exploration */
+        ++m_sStateData.TimeExploringUnsuccessfully;
+        UpdateState();
+        /* Get the diffusion vector to perform obstacle avoidance */
+        bool bCollision;
+        /*
+         * Here we check if collision occur , and initial robot direction as expected for
+         * collision case , and non collision case.
+         */
+        CVector2 cDiffusion = DiffusionVector(bCollision);
+       /*
+       * If we are in the nest, we combine antiphototaxis with obstacle
+       * avoidance
+       * Outside the nest, we just use the diffusion vector
+       */
+        if(m_sStateData.InNest) {
+            /*
+             * we change state to leave home
+             */
+            m_pcLEDs->SetAllColors(CColor::WHITE);
+            m_sStateData.State = SStateData::STATE_LEAVE_HOME;
+        }
+        else {
+            /* Use the diffusion vector only */
+            SetWheelSpeedsFromVector(m_sWheelTurningParams.MaxSpeed * cDiffusion);
+        }
+    }
+}
+
+/****************************************/
+/****************************************/
+
+void CFootBotForaging::goHome() {
+    /*
+     * As soon as you get to the nest, switch to 'resting' - here we
+     * check the robot status comparing to his location and the home target
+     */
+    UpdateState();
+    /* Are we in the nest? */
+    if(m_sStateData.InNest) {
+        /* Have we looked for a place long enough? */
+        /* Yes, stop the wheels... */
+        m_pcWheels->SetLinearVelocity(0.0f, 0.0f);
+        /* Tell people about the last exploration attempt */
+        m_pcRABA->SetData(0, m_eLastExplorationResult);
+        /* ... and switch to state 'resting' */
+        m_pcLEDs->SetAllColors(CColor::RED);
+        m_sStateData.State = SStateData::STATE_RESTING;
+        m_eLastExplorationResult = LAST_EXPLORATION_NONE;
+        return;
+    }
+    /* Keep going */
+    bool bCollision;
+    SetWheelSpeedsFromVector(
+        m_sWheelTurningParams.MaxSpeed * DiffusionVector(bCollision) +
+            m_sWheelTurningParams.MaxSpeed * CalculateVectorToLight());
+}
+
+/****************************************/
+/****************************************/
+
+void CFootBotForaging::dropFood() {
+    /* If we have stayed here enough switch to
+    * leave home state */
+    if(m_sStateData.TimeRested > m_sStateData.MinimumRestingTime) {
+        m_pcLEDs->SetAllColors(CColor::WHITE);
+        m_sStateData.State = SStateData::STATE_LEAVE_HOME;
+        m_sStateData.TimeRested = 0;
+    }
+    else {
+        ++m_sStateData.TimeRested;
+        /* Be sure not to send the last exploration result multiple times */
+        if(m_sStateData.TimeRested == 1) {
+            m_pcRABA->SetData(0, LAST_EXPLORATION_NONE);
+        }
+    }
+}
+void CFootBotForaging::leaveHome() {
+    UpdateState();
+    /* Get the diffusion vector to perform obstacle avoidance */
+    bool bCollision;
+    /*
+    * Here we check if collision occur , and initial robot direction as expected for
+    * collision case , and non collision case.
+    */
+    CVector2 cDiffusion = DiffusionVector(bCollision);
+    if(m_sStateData.InNest) {
+        /*
+         * The vector returned by CalculateVectorToLight() points to
+         * the light. Thus, the minus sign is because we want to go away
+         * from the light.
+         */
+        SetWheelSpeedsFromVector(
+            m_sWheelTurningParams.MaxSpeed * cDiffusion -
+                m_sWheelTurningParams.MaxSpeed * 0.25f * CalculateVectorToLight());
+    } else {
+        m_pcLEDs->SetAllColors(CColor::GREEN);
+        m_sStateData.State = SStateData::STATE_EXPLORING;
+    }
 }
 
 /****************************************/
