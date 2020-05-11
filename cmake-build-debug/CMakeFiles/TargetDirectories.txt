@@ -1,0 +1,3 @@
+/home/roei/University/Robotics Workshop/argos3-examples/controllers/footbot_foraging/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/roei/University/Robotics Workshop/argos3-examples/controllers/footbot_foraging/cmake-build-debug/CMakeFiles/footbot_foraging.dir
+/home/roei/University/Robotics Workshop/argos3-examples/controllers/footbot_foraging/cmake-build-debug/CMakeFiles/edit_cache.dir
