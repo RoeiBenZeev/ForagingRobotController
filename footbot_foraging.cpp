@@ -231,6 +231,7 @@ CVector2 CFootBotForaging::CalculateVectorToLight() {
    const CCI_FootBotLightSensor::TReadings& tLightReads = m_pcLight->GetReadings();
    /* Sum them together */
    CVector2 cAccumulator;
+
    for(size_t i = 0; i < tLightReads.size(); ++i) {
       cAccumulator += CVector2(tLightReads[i].Value, tLightReads[i].Angle);
    }
@@ -601,7 +602,9 @@ void CFootBotForaging::goHome() {
 
 /****************************************/
 /****************************************/
-
+/*
+ * Dropping the puck in the home location
+ */
 void CFootBotForaging::dropFood() {
     /* If we have stayed here enough switch to
     * leave home state */
