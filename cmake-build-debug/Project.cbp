@@ -84,6 +84,12 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="/home/roei/University/Robotics Workshop/argos3-examples/controllers/footbot_foraging/ci_colored_blob_omnidirectional_camera_sensor.cpp">
+			<Option target="footbot_foraging"/>
+		</Unit>
+		<Unit filename="/home/roei/University/Robotics Workshop/argos3-examples/controllers/footbot_foraging/ci_colored_blob_omnidirectional_camera_sensor.h">
+			<Option target="footbot_foraging"/>
+		</Unit>
 		<Unit filename="/home/roei/University/Robotics Workshop/argos3-examples/controllers/footbot_foraging/footbot_foraging.cpp">
 			<Option target="footbot_foraging"/>
 		</Unit>

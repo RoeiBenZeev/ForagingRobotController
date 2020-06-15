@@ -1,4 +1,4 @@
-add_library(footbot_foraging SHARED footbot_foraging.h footbot_foraging.cpp)
+add_library(footbot_foraging SHARED footbot_foraging.h footbot_foraging.cpp ci_colored_blob_omnidirectional_camera_sensor.cpp ci_colored_blob_omnidirectional_camera_sensor.h)
 target_link_libraries(footbot_foraging
   argos3core_simulator
   argos3plugin_simulator_footbot

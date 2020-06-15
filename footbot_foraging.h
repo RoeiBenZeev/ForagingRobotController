@@ -31,6 +31,9 @@
 #include <argos3/plugins/robots/foot-bot/control_interface/ci_footbot_motor_ground_sensor.h>
 /* Definitions for random number generation */
 #include <argos3/core/utility/math/rng.h>
+/*Camera sensor*/
+#include "ci_colored_blob_omnidirectional_camera_sensor.h"
+
 
 /*
  * All the ARGoS stuff in the 'argos' namespace.
@@ -300,7 +303,8 @@ private:
    CCI_FootBotLightSensor* m_pcLight;
    /* Pointer to the foot-bot motor ground sensor */
    CCI_FootBotMotorGroundSensor* m_pcGround;
-
+   /* Pointer to omni camera sensor */
+   CCI_ColoredBlobOmnidirectionalCameraSensor* m_OmniCamera;
    /* The random number generator */
    CRandom::CRNG* m_pcRNG;
 
@@ -320,6 +324,8 @@ private:
    SDiffusionParams m_sDiffusionParams;
    /* The food data */
    SFoodData m_sFoodData;
+   /* The Omni Data*/
+
 
    /*self implementation*/
    void findPuck();

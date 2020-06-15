@@ -4,6 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
+  "/home/roei/University/Robotics Workshop/argos3-examples/controllers/footbot_foraging/ci_colored_blob_omnidirectional_camera_sensor.cpp" "/home/roei/University/Robotics Workshop/argos3-examples/controllers/footbot_foraging/cmake-build-debug/CMakeFiles/footbot_foraging.dir/ci_colored_blob_omnidirectional_camera_sensor.cpp.o"
   "/home/roei/University/Robotics Workshop/argos3-examples/controllers/footbot_foraging/footbot_foraging.cpp" "/home/roei/University/Robotics Workshop/argos3-examples/controllers/footbot_foraging/cmake-build-debug/CMakeFiles/footbot_foraging.dir/footbot_foraging.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")

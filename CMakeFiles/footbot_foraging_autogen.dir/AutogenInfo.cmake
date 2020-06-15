@@ -7,8 +7,8 @@ set(AM_CMAKE_CURRENT_SOURCE_DIR "/home/roei/University/Robotics Workshop/argos3-
 set(AM_CMAKE_CURRENT_BINARY_DIR "/home/roei/University/Robotics Workshop/argos3-examples/controllers/footbot_foraging/")
 set(AM_CMAKE_INCLUDE_DIRECTORIES_PROJECT_BEFORE "")
 set(AM_BUILD_DIR "/home/roei/University/Robotics Workshop/argos3-examples/controllers/footbot_foraging/footbot_foraging_autogen")
-set(AM_SOURCES "/home/roei/University/Robotics Workshop/argos3-examples/controllers/footbot_foraging/footbot_foraging.cpp")
-set(AM_HEADERS "/home/roei/University/Robotics Workshop/argos3-examples/controllers/footbot_foraging/footbot_foraging.h")
+set(AM_SOURCES "/home/roei/University/Robotics Workshop/argos3-examples/controllers/footbot_foraging/ci_colored_blob_omnidirectional_camera_sensor.cpp;/home/roei/University/Robotics Workshop/argos3-examples/controllers/footbot_foraging/footbot_foraging.cpp")
+set(AM_HEADERS "/home/roei/University/Robotics Workshop/argos3-examples/controllers/footbot_foraging/ci_colored_blob_omnidirectional_camera_sensor.h;/home/roei/University/Robotics Workshop/argos3-examples/controllers/footbot_foraging/footbot_foraging.h")
 # Qt environment
 set(AM_QT_VERSION_MAJOR "5")
 set(AM_QT_VERSION_MINOR "9")

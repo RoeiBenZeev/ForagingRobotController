@@ -128,6 +128,7 @@ void CFootBotForaging::Init(TConfigurationNode& t_node) {
       m_pcProximity = GetSensor  <CCI_FootBotProximitySensor      >("footbot_proximity"    );
       m_pcLight     = GetSensor  <CCI_FootBotLightSensor          >("footbot_light"        );
       m_pcGround    = GetSensor  <CCI_FootBotMotorGroundSensor    >("footbot_motor_ground" );
+      m_OmniCamera  = GetSensor  <CCI_ColoredBlobOmnidirectionalCameraSensor>("colored_blob_omnidirectional_camera");
       /*
        * Parse XML parameters
        */
@@ -137,6 +138,9 @@ void CFootBotForaging::Init(TConfigurationNode& t_node) {
       m_sWheelTurningParams.Init(GetNode(t_node, "wheel_turning"));
       /* Controller state */
       m_sStateData.Init(GetNode(t_node, "state"));
+
+      //m_OmniCamera->Init(t_node);
+
    }
    catch(CARGoSException& ex) {
       THROW_ARGOSEXCEPTION_NESTED("Error initializing the foot-bot foraging controller for robot \"" << GetId() << "\"", ex);
@@ -251,6 +255,9 @@ CVector2 CFootBotForaging::CalculateVectorToLight() {
 CVector2 CFootBotForaging::DiffusionVector(bool& b_collision) {
    /* Get readings from proximity sensor */
    const CCI_FootBotProximitySensor::TReadings& tProxReads = m_pcProximity->GetReadings();
+   const CCI_ColoredBlobOmnidirectionalCameraSensor::SReadings& sOmniReads = m_OmniCamera->GetReadings();
+   /*Check id this a robot collision*/
+
    /* Sum them together */
    CVector2 cDiffusionVector;
    for(size_t i = 0; i < tProxReads.size(); ++i) {
@@ -262,10 +269,17 @@ CVector2 CFootBotForaging::DiffusionVector(bool& b_collision) {
    if(m_sDiffusionParams.GoStraightAngleRange.WithinMinBoundIncludedMaxBoundIncluded(cDiffusionVector.Angle()) &&
       cDiffusionVector.Length() < m_sDiffusionParams.Delta ) {
       b_collision = false;
-      return CVector2::X;
+
+       return CVector2::X;
    }
    else {
+       /*Means we are in collision*/
       b_collision = true;
+       for(int i = 0 ; i < sOmniReads.BlobList.size();i++) {
+           argos::LOG << sOmniReads.BlobList[i] << std::endl;
+       }
+
+       /*Have to check if this a robot collision or wall collision*/
       cDiffusionVector.Normalize();
       return -cDiffusionVector;
    }

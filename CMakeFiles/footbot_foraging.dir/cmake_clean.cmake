@@ -2,6 +2,7 @@ file(REMOVE_RECURSE
   "footbot_foraging_autogen"
   "CMakeFiles/footbot_foraging_autogen.dir/AutogenOldSettings.cmake"
   "CMakeFiles/footbot_foraging.dir/footbot_foraging.cpp.o"
+  "CMakeFiles/footbot_foraging.dir/ci_colored_blob_omnidirectional_camera_sensor.cpp.o"
   "CMakeFiles/footbot_foraging.dir/footbot_foraging_autogen/mocs_compilation.cpp.o"
   "libfootbot_foraging.pdb"
   "libfootbot_foraging.so"

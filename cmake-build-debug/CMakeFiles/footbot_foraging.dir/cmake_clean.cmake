@@ -1,4 +1,5 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/footbot_foraging.dir/ci_colored_blob_omnidirectional_camera_sensor.cpp.o"
   "CMakeFiles/footbot_foraging.dir/footbot_foraging.cpp.o"
   "libfootbot_foraging.pdb"
   "libfootbot_foraging.so"

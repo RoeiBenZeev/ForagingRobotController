@@ -81,9 +81,33 @@ controllers/footbot_foraging/CMakeFiles/footbot_foraging.dir/footbot_foraging.cp
 controllers/footbot_foraging/CMakeFiles/footbot_foraging.dir/footbot_foraging.cpp.o.provides.build: controllers/footbot_foraging/CMakeFiles/footbot_foraging.dir/footbot_foraging.cpp.o
 
 
+controllers/footbot_foraging/CMakeFiles/footbot_foraging.dir/ci_colored_blob_omnidirectional_camera_sensor.cpp.o: controllers/footbot_foraging/CMakeFiles/footbot_foraging.dir/flags.make
+controllers/footbot_foraging/CMakeFiles/footbot_foraging.dir/ci_colored_blob_omnidirectional_camera_sensor.cpp.o: controllers/footbot_foraging/ci_colored_blob_omnidirectional_camera_sensor.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/roei/University/Robotics Workshop/argos3-examples/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object controllers/footbot_foraging/CMakeFiles/footbot_foraging.dir/ci_colored_blob_omnidirectional_camera_sensor.cpp.o"
+	cd "/home/roei/University/Robotics Workshop/argos3-examples/controllers/footbot_foraging" && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/footbot_foraging.dir/ci_colored_blob_omnidirectional_camera_sensor.cpp.o -c "/home/roei/University/Robotics Workshop/argos3-examples/controllers/footbot_foraging/ci_colored_blob_omnidirectional_camera_sensor.cpp"
+
+controllers/footbot_foraging/CMakeFiles/footbot_foraging.dir/ci_colored_blob_omnidirectional_camera_sensor.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/footbot_foraging.dir/ci_colored_blob_omnidirectional_camera_sensor.cpp.i"
+	cd "/home/roei/University/Robotics Workshop/argos3-examples/controllers/footbot_foraging" && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/roei/University/Robotics Workshop/argos3-examples/controllers/footbot_foraging/ci_colored_blob_omnidirectional_camera_sensor.cpp" > CMakeFiles/footbot_foraging.dir/ci_colored_blob_omnidirectional_camera_sensor.cpp.i
+
+controllers/footbot_foraging/CMakeFiles/footbot_foraging.dir/ci_colored_blob_omnidirectional_camera_sensor.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/footbot_foraging.dir/ci_colored_blob_omnidirectional_camera_sensor.cpp.s"
+	cd "/home/roei/University/Robotics Workshop/argos3-examples/controllers/footbot_foraging" && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/roei/University/Robotics Workshop/argos3-examples/controllers/footbot_foraging/ci_colored_blob_omnidirectional_camera_sensor.cpp" -o CMakeFiles/footbot_foraging.dir/ci_colored_blob_omnidirectional_camera_sensor.cpp.s
+
+controllers/footbot_foraging/CMakeFiles/footbot_foraging.dir/ci_colored_blob_omnidirectional_camera_sensor.cpp.o.requires:
+
+.PHONY : controllers/footbot_foraging/CMakeFiles/footbot_foraging.dir/ci_colored_blob_omnidirectional_camera_sensor.cpp.o.requires
+
+controllers/footbot_foraging/CMakeFiles/footbot_foraging.dir/ci_colored_blob_omnidirectional_camera_sensor.cpp.o.provides: controllers/footbot_foraging/CMakeFiles/footbot_foraging.dir/ci_colored_blob_omnidirectional_camera_sensor.cpp.o.requires
+	$(MAKE) -f controllers/footbot_foraging/CMakeFiles/footbot_foraging.dir/build.make controllers/footbot_foraging/CMakeFiles/footbot_foraging.dir/ci_colored_blob_omnidirectional_camera_sensor.cpp.o.provides.build
+.PHONY : controllers/footbot_foraging/CMakeFiles/footbot_foraging.dir/ci_colored_blob_omnidirectional_camera_sensor.cpp.o.provides
+
+controllers/footbot_foraging/CMakeFiles/footbot_foraging.dir/ci_colored_blob_omnidirectional_camera_sensor.cpp.o.provides.build: controllers/footbot_foraging/CMakeFiles/footbot_foraging.dir/ci_colored_blob_omnidirectional_camera_sensor.cpp.o
+
+
 controllers/footbot_foraging/CMakeFiles/footbot_foraging.dir/footbot_foraging_autogen/mocs_compilation.cpp.o: controllers/footbot_foraging/CMakeFiles/footbot_foraging.dir/flags.make
 controllers/footbot_foraging/CMakeFiles/footbot_foraging.dir/footbot_foraging_autogen/mocs_compilation.cpp.o: controllers/footbot_foraging/footbot_foraging_autogen/mocs_compilation.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/roei/University/Robotics Workshop/argos3-examples/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object controllers/footbot_foraging/CMakeFiles/footbot_foraging.dir/footbot_foraging_autogen/mocs_compilation.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/roei/University/Robotics Workshop/argos3-examples/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object controllers/footbot_foraging/CMakeFiles/footbot_foraging.dir/footbot_foraging_autogen/mocs_compilation.cpp.o"
 	cd "/home/roei/University/Robotics Workshop/argos3-examples/controllers/footbot_foraging" && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/footbot_foraging.dir/footbot_foraging_autogen/mocs_compilation.cpp.o -c "/home/roei/University/Robotics Workshop/argos3-examples/controllers/footbot_foraging/footbot_foraging_autogen/mocs_compilation.cpp"
 
 controllers/footbot_foraging/CMakeFiles/footbot_foraging.dir/footbot_foraging_autogen/mocs_compilation.cpp.i: cmake_force
@@ -108,16 +132,18 @@ controllers/footbot_foraging/CMakeFiles/footbot_foraging.dir/footbot_foraging_au
 # Object files for target footbot_foraging
 footbot_foraging_OBJECTS = \
 "CMakeFiles/footbot_foraging.dir/footbot_foraging.cpp.o" \
+"CMakeFiles/footbot_foraging.dir/ci_colored_blob_omnidirectional_camera_sensor.cpp.o" \
 "CMakeFiles/footbot_foraging.dir/footbot_foraging_autogen/mocs_compilation.cpp.o"
 
 # External object files for target footbot_foraging
 footbot_foraging_EXTERNAL_OBJECTS =
 
 controllers/footbot_foraging/libfootbot_foraging.so: controllers/footbot_foraging/CMakeFiles/footbot_foraging.dir/footbot_foraging.cpp.o
+controllers/footbot_foraging/libfootbot_foraging.so: controllers/footbot_foraging/CMakeFiles/footbot_foraging.dir/ci_colored_blob_omnidirectional_camera_sensor.cpp.o
 controllers/footbot_foraging/libfootbot_foraging.so: controllers/footbot_foraging/CMakeFiles/footbot_foraging.dir/footbot_foraging_autogen/mocs_compilation.cpp.o
 controllers/footbot_foraging/libfootbot_foraging.so: controllers/footbot_foraging/CMakeFiles/footbot_foraging.dir/build.make
 controllers/footbot_foraging/libfootbot_foraging.so: controllers/footbot_foraging/CMakeFiles/footbot_foraging.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir="/home/roei/University/Robotics Workshop/argos3-examples/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX shared library libfootbot_foraging.so"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir="/home/roei/University/Robotics Workshop/argos3-examples/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX shared library libfootbot_foraging.so"
 	cd "/home/roei/University/Robotics Workshop/argos3-examples/controllers/footbot_foraging" && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/footbot_foraging.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -126,6 +152,7 @@ controllers/footbot_foraging/CMakeFiles/footbot_foraging.dir/build: controllers/
 .PHONY : controllers/footbot_foraging/CMakeFiles/footbot_foraging.dir/build
 
 controllers/footbot_foraging/CMakeFiles/footbot_foraging.dir/requires: controllers/footbot_foraging/CMakeFiles/footbot_foraging.dir/footbot_foraging.cpp.o.requires
+controllers/footbot_foraging/CMakeFiles/footbot_foraging.dir/requires: controllers/footbot_foraging/CMakeFiles/footbot_foraging.dir/ci_colored_blob_omnidirectional_camera_sensor.cpp.o.requires
 controllers/footbot_foraging/CMakeFiles/footbot_foraging.dir/requires: controllers/footbot_foraging/CMakeFiles/footbot_foraging.dir/footbot_foraging_autogen/mocs_compilation.cpp.o.requires
 
 .PHONY : controllers/footbot_foraging/CMakeFiles/footbot_foraging.dir/requires

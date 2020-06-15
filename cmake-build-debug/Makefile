@@ -123,6 +123,33 @@ footbot_foraging/fast:
 	$(MAKE) -f CMakeFiles/footbot_foraging.dir/build.make CMakeFiles/footbot_foraging.dir/build
 .PHONY : footbot_foraging/fast
 
+ci_colored_blob_omnidirectional_camera_sensor.o: ci_colored_blob_omnidirectional_camera_sensor.cpp.o
+
+.PHONY : ci_colored_blob_omnidirectional_camera_sensor.o
+
+# target to build an object file
+ci_colored_blob_omnidirectional_camera_sensor.cpp.o:
+	$(MAKE) -f CMakeFiles/footbot_foraging.dir/build.make CMakeFiles/footbot_foraging.dir/ci_colored_blob_omnidirectional_camera_sensor.cpp.o
+.PHONY : ci_colored_blob_omnidirectional_camera_sensor.cpp.o
+
+ci_colored_blob_omnidirectional_camera_sensor.i: ci_colored_blob_omnidirectional_camera_sensor.cpp.i
+
+.PHONY : ci_colored_blob_omnidirectional_camera_sensor.i
+
+# target to preprocess a source file
+ci_colored_blob_omnidirectional_camera_sensor.cpp.i:
+	$(MAKE) -f CMakeFiles/footbot_foraging.dir/build.make CMakeFiles/footbot_foraging.dir/ci_colored_blob_omnidirectional_camera_sensor.cpp.i
+.PHONY : ci_colored_blob_omnidirectional_camera_sensor.cpp.i
+
+ci_colored_blob_omnidirectional_camera_sensor.s: ci_colored_blob_omnidirectional_camera_sensor.cpp.s
+
+.PHONY : ci_colored_blob_omnidirectional_camera_sensor.s
+
+# target to generate assembly for a file
+ci_colored_blob_omnidirectional_camera_sensor.cpp.s:
+	$(MAKE) -f CMakeFiles/footbot_foraging.dir/build.make CMakeFiles/footbot_foraging.dir/ci_colored_blob_omnidirectional_camera_sensor.cpp.s
+.PHONY : ci_colored_blob_omnidirectional_camera_sensor.cpp.s
+
 footbot_foraging.o: footbot_foraging.cpp.o
 
 .PHONY : footbot_foraging.o
@@ -159,6 +186,9 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... footbot_foraging"
 	@echo "... edit_cache"
+	@echo "... ci_colored_blob_omnidirectional_camera_sensor.o"
+	@echo "... ci_colored_blob_omnidirectional_camera_sensor.i"
+	@echo "... ci_colored_blob_omnidirectional_camera_sensor.s"
 	@echo "... footbot_foraging.o"
 	@echo "... footbot_foraging.i"
 	@echo "... footbot_foraging.s"

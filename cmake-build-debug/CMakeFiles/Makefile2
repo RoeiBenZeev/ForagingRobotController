@@ -74,12 +74,12 @@ preinstall:
 CMakeFiles/footbot_foraging.dir/all:
 	$(MAKE) -f CMakeFiles/footbot_foraging.dir/build.make CMakeFiles/footbot_foraging.dir/depend
 	$(MAKE) -f CMakeFiles/footbot_foraging.dir/build.make CMakeFiles/footbot_foraging.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir="/home/roei/University/Robotics Workshop/argos3-examples/controllers/footbot_foraging/cmake-build-debug/CMakeFiles" --progress-num=1,2 "Built target footbot_foraging"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir="/home/roei/University/Robotics Workshop/argos3-examples/controllers/footbot_foraging/cmake-build-debug/CMakeFiles" --progress-num=1,2,3 "Built target footbot_foraging"
 .PHONY : CMakeFiles/footbot_foraging.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/footbot_foraging.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start "/home/roei/University/Robotics Workshop/argos3-examples/controllers/footbot_foraging/cmake-build-debug/CMakeFiles" 2
+	$(CMAKE_COMMAND) -E cmake_progress_start "/home/roei/University/Robotics Workshop/argos3-examples/controllers/footbot_foraging/cmake-build-debug/CMakeFiles" 3
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/footbot_foraging.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start "/home/roei/University/Robotics Workshop/argos3-examples/controllers/footbot_foraging/cmake-build-debug/CMakeFiles" 0
 .PHONY : CMakeFiles/footbot_foraging.dir/rule
