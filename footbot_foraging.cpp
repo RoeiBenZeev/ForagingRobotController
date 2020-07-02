@@ -280,18 +280,14 @@ CVector2 CFootBotForaging::DiffusionVector(bool& b_collision) {
       b_collision = true;
 
        const CCI_ColoredBlobOmnidirectionalCameraSensor::SReadings& sOmniReads = m_OmniCamera->GetReadings();
-        int minIndex = 0, minDistance;
-       minDistance = sOmniReads.BlobList[minIndex]->Distance;
+
        for(int i = 0 ; i < sOmniReads.BlobList.size();i++) {
-           if (m_sDiffusionParams.GoStraightAngleRange.WithinMinBoundIncludedMaxBoundIncluded(sOmniReads.BlobList[i]->Angle)) {
-               argos::LOG << "Angle OK" << std::endl;
-               if ((sOmniReads.BlobList[i]->Color == CColor::GREEN || sOmniReads.BlobList[i]->Color == CColor::RED
-                   || sOmniReads.BlobList[i]->Color == CColor::WHITE
-                   || sOmniReads.BlobList[i]->Color == CColor::YELLOW ) && (sOmniReads.BlobList[i]->Distance < 20)) {
-                    argos::LOG << "Coll" << std::endl;
-               }
-           }
+
+            if(sOmniReads.BlobList[i]->Angle == cDiffusionVector.Angle()) {
+                argos::LOG << "robot collision" << std::endl;
+            }
        }
+
        //argos::LOG << sOmniReads.BlobList.size() << std::endl;
        /*Have to check if this a robot collision or wall collision*/
       cDiffusionVector.Normalize();
