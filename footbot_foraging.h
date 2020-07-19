@@ -33,6 +33,8 @@
 #include <argos3/core/utility/math/rng.h>
 /*Camera sensor*/
 #include "ci_colored_blob_omnidirectional_camera_sensor.h"
+/* for random */
+#include <stdlib.h>
 
 
 /*
@@ -334,6 +336,23 @@ private:
    void goHomeCollision();
    void dropFood();
    void leaveHome();
+
+   //q learning
+   bool shouldExploit();
+   double calculateReward();
+   enum EStrategies {
+       goLeft = 0,
+       goRight,
+       backAndForth,
+       normalDodge
+   }
+   inline int GetStratAmount() {
+       return 4;
+   }
+   double getReward(EStrategies strat);
+   inline EStrategies GetRandomStrat() {
+       return (EStrategies)(rand() % (GetStratAmount()));
+   }
 
 };
 
