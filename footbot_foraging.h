@@ -35,6 +35,9 @@
 #include "ci_colored_blob_omnidirectional_camera_sensor.h"
 /* for random */
 #include <stdlib.h>
+/* for measuring collision handling efficiency */
+#include <chrono>
+#include <ctime>
 
 
 /*
@@ -49,6 +52,26 @@ using namespace argos;
 class CFootBotForaging : public CCI_Controller {
 
 public:
+
+   /*
+    * This structure holds data about collision handling Q learning
+    */
+   struct SCollision {
+      bool IsColliding;
+      std::chrono::seconds AvgCollisionTime;
+
+      bool ShouldExploit();
+      double CalculateReward();
+      enum EStrategies {
+         goLeft = 0,
+         goRight,
+         backAndForth,
+         normalDodge
+      }
+      int GetStratAmount();
+      double GetReward(EStrategies strat);
+      EStrategies GetRandomStrat();
+   }
 
    /*
     * This structure holds data about food collecting by the robots
@@ -336,23 +359,6 @@ private:
    void goHomeCollision();
    void dropFood();
    void leaveHome();
-
-   //q learning
-   bool shouldExploit();
-   double calculateReward();
-   enum EStrategies {
-       goLeft = 0,
-       goRight,
-       backAndForth,
-       normalDodge
-   }
-   inline int GetStratAmount() {
-       return 4;
-   }
-   double getReward(EStrategies strat);
-   inline EStrategies GetRandomStrat() {
-       return (EStrategies)(rand() % (GetStratAmount()));
-   }
 
 };
 

@@ -367,6 +367,21 @@ void CFootBotForaging::SetWheelSpeedsFromVector(const CVector2& c_heading) {
    m_pcWheels->SetLinearVelocity(fLeftWheelSpeed, fRightWheelSpeed);
 }
 
+/****************************************/
+/****************************************/
+
+// Q learning
+
+bool CFootBotForaging::SCollision::ShouldExploit() {
+    static int explorePercentage = 100;
+    int currentExploreChance = rand() % 100; //random number from 0-99
+    if (currentExploreChance < explorePercentage) { //start at 100% chance
+        explorePercentage--; //reduce chance for next time by 1%, after 100 explorations we only exploit
+        return false;
+	}
+    return true;
+}
+
 
 
 /****************************************/
