@@ -140,6 +140,8 @@ void CFootBotForaging::Init(TConfigurationNode& t_node) {
       m_sWheelTurningParams.Init(GetNode(t_node, "wheel_turning"));
       /* Controller state */
       m_sStateData.Init(GetNode(t_node, "state"));
+      /* Collision Q learning*/
+      m_sCollision.Init();
 
       //m_OmniCamera->Init(t_node);
 
@@ -401,15 +403,17 @@ EStrategies CFootBotForaging::SCollision::GetBestStrat() {
     return best;
 }
 
-double CFootBotForaging::SCollision::CalculateReward() {
+void CFootBotForaging::SCollision::ApplyReward() {
     auto collisionEnd = std::chrono::steady_clock::now();
     if (LastCollisionStart == NULL)
         return 0; //no collision to reward
     auto collisionTime = std::chrono::duration_cast<std::chrono::milliseconds>(collisionEnd - LastCollisionStart);
     if (AvgCollisionTime == NULL)
-        AvgCollisionTime = collisionTime; //first collision is baseline
-    double rewardBase = (double)((AvgCollisionTime - collisionTime).count());
+        AvgCollisionTime = collisionTime; //first collision is baseline, first reward is sacrificed as a result
+    double rewardBase = (double)((AvgCollisionTime - collisionTime).count()); //the faster you get out, the better. being slower than avg gives neg reward.
     UpdateAvg(collisionTime);
+    Rewards[CurrStrat] = GetNewAvg(Rewards[CurrStrat], LearningCounts[CurrStrat], rewardBase);
+    LearningCounts[CurrStrat] += 1;
 }
 
 void CFootBotForaging::SCollision::UpdateAvg(std::chrono::milliseconds newTime) {

@@ -75,9 +75,8 @@ public:
 
       void Init();
       bool ShouldExploit();
-      double CalculateReward();
+      void ApplyReward();
       int GetStratAmount();
-      double GetReward(EStrategies strat);
       EStrategies GetRandomStrat();
       EStrategies GetBestStrat();
       EStrategies Choose();
