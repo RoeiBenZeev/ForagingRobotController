@@ -53,6 +53,13 @@ class CFootBotForaging : public CCI_Controller {
 
 public:
 
+   enum EStrategies {
+      goLeft = 0,
+      goRight,
+      backAndForth,
+      normalDodge
+   }
+
    /*
     * This structure holds data about collision handling Q learning
     */
@@ -62,12 +69,6 @@ public:
 
       bool ShouldExploit();
       double CalculateReward();
-      enum EStrategies {
-         goLeft = 0,
-         goRight,
-         backAndForth,
-         normalDodge
-      }
       int GetStratAmount();
       double GetReward(EStrategies strat);
       EStrategies GetRandomStrat();

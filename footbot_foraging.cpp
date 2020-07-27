@@ -382,6 +382,14 @@ bool CFootBotForaging::SCollision::ShouldExploit() {
     return true;
 }
 
+int CFootBotForaging::SCollision::GetStratAmount() {
+    return 4;
+}
+
+EStrategies CFootBotForaging::SCollision::GetRandomStrat() {
+    return (EStrategies)(rand() % (GetStratAmount()));
+}
+
 
 
 /****************************************/
