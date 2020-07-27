@@ -390,6 +390,33 @@ EStrategies CFootBotForaging::SCollision::GetRandomStrat() {
     return (EStrategies)(rand() % (GetStratAmount()));
 }
 
+double CFootBotForaging::SCollision::CalculateReward() {
+    auto collisionEnd = std::chrono::steady_clock::now();
+    if (LastCollisionStart == NULL)
+        return 0; //no collision to reward
+    auto collisionTime = std::chrono::duration_cast<std::chrono::milliseconds>(collisionEnd - LastCollisionStart);
+    if (AvgCollisionTime == NULL)
+        AvgCollisionTime = collisionTime; //first collision is baseline
+    double rewardBase = (double)((AvgCollisionTime - collisionTime).count());
+    UpdateAvg(collisionTime);
+}
+
+void CFootBotForaging::SCollision::UpdateAvg(std::chrono::milliseconds newTime) {
+    AvgCollisionTime = std::chrono::milliseconds((int)GetNewAvg(AvgCollisionTime.count(), collisionCount, newTime.count()));
+    collisionCount++;
+}
+
+double GetNewAvg(double currAvg, int count, double newVal) {
+    return ((currAvg * count) + newVal) / (count + 1);
+}
+
+void CFootBotForaging::SCollision::Init() {
+    AvgCollisionTime = NULL;
+    LastCollisionStart = NULL;
+    IsColliding = false;
+    collisionCount = 0;
+}
+
 
 
 /****************************************/

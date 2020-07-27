@@ -65,13 +65,17 @@ public:
     */
    struct SCollision {
       bool IsColliding;
-      std::chrono::seconds AvgCollisionTime;
+      std::chrono::milliseconds AvgCollisionTime;
+      std::chrono::time_point LastCollisionStart;
+      int collisionCount;
 
+      void Init();
       bool ShouldExploit();
       double CalculateReward();
       int GetStratAmount();
       double GetReward(EStrategies strat);
       EStrategies GetRandomStrat();
+      double GetNewAvg(double currAvg, int count, double newVal);
    }
 
    /*
@@ -342,6 +346,8 @@ private:
       LAST_EXPLORATION_UNSUCCESSFUL // no food found in the last exploration
    } m_eLastExplorationResult;
 
+   /* The collision Q learning */
+   SCollision m_sCollision;
    /* The controller state information */
    SStateData m_sStateData;
    /* The turning parameters */
