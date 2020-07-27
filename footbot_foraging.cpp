@@ -390,6 +390,17 @@ EStrategies CFootBotForaging::SCollision::GetRandomStrat() {
     return (EStrategies)(rand() % (GetStratAmount()));
 }
 
+EStrategies CFootBotForaging::SCollision::GetBestStrat() {
+    EStrategies best = EStrategies::goLeft;
+    if (Rewards[EStrategies::goRight] > Rewards[best])
+        best = EStrategies::goRight;
+    if (Rewards[EStrategies::backAndForth] > Rewards[best])
+        best = EStrategies::backAndForth;
+    if (Rewards[EStrategies::normalDodge] > Rewards[best])
+        best = EStrategies::normalDodge;
+    return best;
+}
+
 double CFootBotForaging::SCollision::CalculateReward() {
     auto collisionEnd = std::chrono::steady_clock::now();
     if (LastCollisionStart == NULL)
@@ -406,7 +417,7 @@ void CFootBotForaging::SCollision::UpdateAvg(std::chrono::milliseconds newTime) 
     collisionCount++;
 }
 
-double GetNewAvg(double currAvg, int count, double newVal) {
+double CFootBotForaging::SCollision::GetNewAvg(double currAvg, int count, double newVal) {
     return ((currAvg * count) + newVal) / (count + 1);
 }
 
@@ -415,6 +426,27 @@ void CFootBotForaging::SCollision::Init() {
     LastCollisionStart = NULL;
     IsColliding = false;
     collisionCount = 0;
+    LearningCounts = {
+        {EStrategies::goLeft, 0},
+        {EStrategies::goRight, 0},
+        {EStrategies::backAndForth, 0},
+        {EStrategies::normalDodge, 0}
+	};
+    Rewards = {
+        {EStrategies::goLeft, 0.0},
+        {EStrategies::goRight, 0.0},
+        {EStrategies::backAndForth, 0.0},
+        {EStrategies::normalDodge, 0.0}
+	};
+}
+
+EStrategies CFootbotForaging::SCollision::Choose() {
+    if (ShouldExploit())
+        CurrStrat = GetBestStrat();
+    else
+        CurrStrat = GetRandomStrat();
+    //...
+    return CurrStrat;
 }
 
 

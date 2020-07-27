@@ -38,6 +38,7 @@
 /* for measuring collision handling efficiency */
 #include <chrono>
 #include <ctime>
+#include <map>
 
 
 /*
@@ -68,6 +69,9 @@ public:
       std::chrono::milliseconds AvgCollisionTime;
       std::chrono::time_point LastCollisionStart;
       int collisionCount;
+      std::map<EStrategies, int> LearningCounts;
+      std::map<EStrategies, double> Rewards;
+      EStrategies CurrStrat;
 
       void Init();
       bool ShouldExploit();
@@ -75,6 +79,8 @@ public:
       int GetStratAmount();
       double GetReward(EStrategies strat);
       EStrategies GetRandomStrat();
+      EStrategies GetBestStrat();
+      EStrategies Choose();
       double GetNewAvg(double currAvg, int count, double newVal);
    }
 
