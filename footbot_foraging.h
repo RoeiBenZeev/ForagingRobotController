@@ -67,7 +67,7 @@ public:
    struct SCollision {
      bool IsColliding;
      std::chrono::milliseconds AvgCollisionTime;
-     std::chrono::time_point LastCollisionStart;
+     //std::chrono::time_point LastCollisionStart;
      int collisionCount;
      std::map<EStrategies, int> LearningCounts;
      std::map<EStrategies, double> Rewards;
