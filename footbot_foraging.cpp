@@ -140,6 +140,8 @@ void CFootBotForaging::Init(TConfigurationNode& t_node) {
       m_sWheelTurningParams.Init(GetNode(t_node, "wheel_turning"));
       /* Controller state */
       m_sStateData.Init(GetNode(t_node, "state"));
+      /* Collision Q learning*/
+      m_sCollision.Init();
 
       //m_OmniCamera->Init(t_node);
 
@@ -400,6 +402,90 @@ void CFootBotForaging::SetWheelSpeedsFromVector(const CVector2& c_heading) {
    }
    /* Finally, set the wheel speeds */
    m_pcWheels->SetLinearVelocity(fLeftWheelSpeed, fRightWheelSpeed);
+}
+
+/****************************************/
+/****************************************/
+
+// Q learning
+
+bool CFootBotForaging::SCollision::ShouldExploit() {
+    static int explorePercentage = 100;
+    int currentExploreChance = rand() % 100; //random number from 0-99
+    if (currentExploreChance < explorePercentage) { //start at 100% chance
+        explorePercentage--; //reduce chance for next time by 1%, after 100 explorations we only exploit
+        return false;
+	}
+    return true;
+}
+
+int CFootBotForaging::SCollision::GetStratAmount() {
+    return 4;
+}
+
+EStrategies CFootBotForaging::SCollision::GetRandomStrat() {
+    return (EStrategies)(rand() % (GetStratAmount()));
+}
+
+EStrategies CFootBotForaging::SCollision::GetBestStrat() {
+    EStrategies best = EStrategies::goLeft;
+    if (Rewards[EStrategies::goRight] > Rewards[best])
+        best = EStrategies::goRight;
+    if (Rewards[EStrategies::backAndForth] > Rewards[best])
+        best = EStrategies::backAndForth;
+    if (Rewards[EStrategies::normalDodge] > Rewards[best])
+        best = EStrategies::normalDodge;
+    return best;
+}
+
+void CFootBotForaging::SCollision::ApplyReward() {
+    auto collisionEnd = std::chrono::steady_clock::now();
+    if (LastCollisionStart == NULL)
+        return 0; //no collision to reward
+    auto collisionTime = std::chrono::duration_cast<std::chrono::milliseconds>(collisionEnd - LastCollisionStart);
+    if (AvgCollisionTime == NULL)
+        AvgCollisionTime = collisionTime; //first collision is baseline, first reward is sacrificed as a result
+    double rewardBase = (double)((AvgCollisionTime - collisionTime).count()); //the faster you get out, the better. being slower than avg gives neg reward.
+    UpdateAvg(collisionTime);
+    Rewards[CurrStrat] = GetNewAvg(Rewards[CurrStrat], LearningCounts[CurrStrat], rewardBase);
+    LearningCounts[CurrStrat] += 1;
+}
+
+void CFootBotForaging::SCollision::UpdateAvg(std::chrono::milliseconds newTime) {
+    AvgCollisionTime = std::chrono::milliseconds((int)GetNewAvg(AvgCollisionTime.count(), collisionCount, newTime.count()));
+    collisionCount++;
+}
+
+double CFootBotForaging::SCollision::GetNewAvg(double currAvg, int count, double newVal) {
+    return ((currAvg * count) + newVal) / (count + 1);
+}
+
+void CFootBotForaging::SCollision::Init() {
+    AvgCollisionTime = NULL;
+    LastCollisionStart = NULL;
+    IsColliding = false;
+    collisionCount = 0;
+    LearningCounts = {
+        {EStrategies::goLeft, 0},
+        {EStrategies::goRight, 0},
+        {EStrategies::backAndForth, 0},
+        {EStrategies::normalDodge, 0}
+	};
+    Rewards = {
+        {EStrategies::goLeft, 0.0},
+        {EStrategies::goRight, 0.0},
+        {EStrategies::backAndForth, 0.0},
+        {EStrategies::normalDodge, 0.0}
+	};
+}
+
+EStrategies CFootbotForaging::SCollision::Choose() {
+    if (ShouldExploit())
+        CurrStrat = GetBestStrat();
+    else
+        CurrStrat = GetRandomStrat();
+    //...
+    return CurrStrat;
 }
 
 

@@ -35,6 +35,10 @@
 #include "ci_colored_blob_omnidirectional_camera_sensor.h"
 /* for random */
 #include <stdlib.h>
+/* for measuring collision handling efficiency */
+#include <chrono>
+#include <ctime>
+#include <map>
 
 
 /*
@@ -50,7 +54,37 @@ class CFootBotForaging : public CCI_Controller {
 
 public:
 
+    enum EStrategies {
+      goLeft = 0,
+      goRight,
+      backAndForth,
+      normal
+    };
+
    /*
+    * This structure holds data about collision handling Q learning
+    */
+   struct SCollision {
+     bool IsColliding;
+     std::chrono::milliseconds AvgCollisionTime;
+     std::chrono::time_point LastCollisionStart;
+     int collisionCount;
+     std::map<EStrategies, int> LearningCounts;
+     std::map<EStrategies, double> Rewards;
+     EStrategies CurrStrat;
+
+     void Init();
+     bool ShouldExploit();
+     void ApplyReward();
+     int GetStratAmount();
+     EStrategies GetRandomStrat();
+     EStrategies GetBestStrat();
+     EStrategies Choose();
+     double GetNewAvg(double currAvg, int count, double newVal);
+   };
+
+
+    /*
     * This structure holds data about food collecting by the robots
     */
    struct SFoodData {
@@ -318,6 +352,8 @@ private:
       LAST_EXPLORATION_UNSUCCESSFUL // no food found in the last exploration
    } m_eLastExplorationResult;
 
+   /* The collision Q learning */
+   SCollision m_sCollision;
    /* The controller state information */
    SStateData m_sStateData;
    /* The turning parameters */
@@ -343,22 +379,7 @@ private:
     CVector2 repelVec(CVector2 myVec);
     CVector2 vecNormalDodge(CVector2 myVec);
 
-   //q learning
-   bool shouldExploit();
-   double calculateReward();
-   enum EStrategies {
-       goLeft = 0,
-       goRight,
-       backAndForth,
-       normalDodge
-   };
-   inline int GetStratAmount() {
-       return 4;
-   }
-   double getReward(EStrategies strat);
-   inline EStrategies GetRandomStrat() {
-       return (EStrategies)(rand() % (GetStratAmount()));
-   }
+
 
 };
 
