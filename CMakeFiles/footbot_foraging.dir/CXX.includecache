@@ -53,6 +53,8 @@ argos3/core/utility/math/rng.h
 -
 ci_colored_blob_omnidirectional_camera_sensor.h
 /home/roei/University/Robotics Workshop/argos3-examples/controllers/footbot_foraging/ci_colored_blob_omnidirectional_camera_sensor.h
+stdlib.h
+-
 
 /home/roei/University/Robotics Workshop/argos3-examples/controllers/footbot_foraging/footbot_foraging_autogen/mocs_compilation.cpp
 

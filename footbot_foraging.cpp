@@ -285,6 +285,8 @@ CVector2 CFootBotForaging::DiffusionVector(bool& b_collision) {
        for(int i = 0 ; i < sOmniReads.BlobList.size();i++) {
            if(!m_sDiffusionParams.GoStraightAngleRange.WithinMinBoundIncludedMaxBoundIncluded(cDiffusionVector.Angle())) {
                CRadians Angle =  cDiffusionVector.Angle() - sOmniReads.BlobList[i]->Angle;
+               //Check if any if the omni camera reads is in the collision vector angle range.
+               //The Angle var cant be 0 most of the time even if that a robot collision so we take a smaller enough value.
                 if (Angle.GetAbsoluteValue() < 0.25) {
                     /*If we got here , its  a inter robots collision with high probability*/
                     b_interRobotCollision = true;
@@ -293,13 +295,40 @@ CVector2 CFootBotForaging::DiffusionVector(bool& b_collision) {
            }
        }
        if (b_interRobotCollision) {
-           argos::LOG << "inter collision" << std::endl;
+           /*Here we define our inter robots collision handeler*/
+           //argos::LOG << "inter collision" << std::endl;
+           return vecGoRight(cDiffusionVector).Normalize();
        }
 
+       //argos::LOG << cDiffusionVector << std::endl;
 
-      cDiffusionVector.Normalize();
-      return -cDiffusionVector;
+       cDiffusionVector.Normalize();
+       //argos::LOG << cDiffusionVector << std::endl;
+
+       return -cDiffusionVector;
    }
+}
+
+CVector2 CFootBotForaging::vecGoRight(CVector2 myVec){
+    CVector2 cDiffusionVector = CVector2::X;
+    CRadians rightAngle(CRadians().PI + CRadians().PI_OVER_TWO);
+
+    argos::LOG << myVec << std::endl;
+    myVec.Rotate(rightAngle);
+    argos::LOG << myVec << std::endl;
+
+    return myVec;
+}
+
+CVector2 CFootBotForaging::vecGoBack(CVector2 myVec) {
+    CVector2 cDiffusionVector = CVector2::X;
+    CRadians rightAngle(CRadians().PI);
+
+    argos::LOG << myVec << std::endl;
+    myVec.Rotate(rightAngle);
+    argos::LOG << myVec << std::endl;
+
+    return myVec;
 }
 
 /****************************************/
@@ -510,6 +539,7 @@ void CFootBotForaging::leaveHome() {
         m_sStateData.State = SStateData::STATE_EXPLORING;
     }
 }
+
 
 /****************************************/
 /****************************************/

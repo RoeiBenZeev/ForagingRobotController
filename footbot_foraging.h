@@ -337,6 +337,12 @@ private:
    void dropFood();
    void leaveHome();
 
+    CVector2 vecGoRight(CVector2 myVec);
+    CVector2 vecGoBack(CVector2 myVec);
+    CVector2 vegGoLeft(CVector2 myVec);
+    CVector2 repelVec(CVector2 myVec);
+    CVector2 vecNormalDodge(CVector2 myVec);
+
    //q learning
    bool shouldExploit();
    double calculateReward();
@@ -345,7 +351,7 @@ private:
        goRight,
        backAndForth,
        normalDodge
-   }
+   };
    inline int GetStratAmount() {
        return 4;
    }

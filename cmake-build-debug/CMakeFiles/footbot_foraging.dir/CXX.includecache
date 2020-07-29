@@ -6,6 +6,22 @@
 
 #IncludeRegexTransform: 
 
+/home/roei/University/Robotics Workshop/argos3-examples/controllers/footbot_foraging/ci_colored_blob_omnidirectional_camera_sensor.cpp
+ci_colored_blob_omnidirectional_camera_sensor.h
+/home/roei/University/Robotics Workshop/argos3-examples/controllers/footbot_foraging/ci_colored_blob_omnidirectional_camera_sensor.h
+
+/home/roei/University/Robotics Workshop/argos3-examples/controllers/footbot_foraging/ci_colored_blob_omnidirectional_camera_sensor.h
+argos3/core/control_interface/ci_sensor.h
+-
+argos3/core/utility/math/angles.h
+-
+argos3/core/utility/datatypes/color.h
+-
+vector
+-
+argos3/core/utility/logging/argos_log.h
+-
+
 /home/roei/University/Robotics Workshop/argos3-examples/controllers/footbot_foraging/footbot_foraging.cpp
 footbot_foraging.h
 /home/roei/University/Robotics Workshop/argos3-examples/controllers/footbot_foraging/footbot_foraging.h
@@ -34,5 +50,9 @@ argos3/plugins/robots/foot-bot/control_interface/ci_footbot_light_sensor.h
 argos3/plugins/robots/foot-bot/control_interface/ci_footbot_motor_ground_sensor.h
 -
 argos3/core/utility/math/rng.h
+-
+ci_colored_blob_omnidirectional_camera_sensor.h
+/home/roei/University/Robotics Workshop/argos3-examples/controllers/footbot_foraging/ci_colored_blob_omnidirectional_camera_sensor.h
+stdlib.h
 -
 
